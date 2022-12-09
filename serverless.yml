@@ -5,7 +5,13 @@ provider:
   name: aws
   runtime: nodejs14.x
   region: us-east-2 #Write my region 
-
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-2:764539909266:table/tick-dev #This is the arn of dev table
+        - arn:aws:dynamodb:us-east-2:764539909266:table/tick-prod #This is the arn of prod table
 
 functions:
   hello: #Name of the lambda in aws
