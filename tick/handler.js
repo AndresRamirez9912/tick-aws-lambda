@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports.hello = async (event) => {
+module.exports.tick = async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify(
@@ -8,8 +8,6 @@ module.exports.hello = async (event) => {
         message: "Go Serverless v3.0! Your function executed successfully!",
         input: event,
       },
-      null,
-      2
     ),
   };
 };
