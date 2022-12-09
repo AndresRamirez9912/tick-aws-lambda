@@ -1,34 +1,29 @@
 service: tick
 frameworkVersion: '3'
 
-params:
-  prod:
-    NAME_DYNAMODB: tickTable-prod
-  dev:
-    NAME_DYNAMODB: tickTable-dev
-
 provider:
   name: aws
   runtime: nodejs14.x
   region: us-east-2 #Write my region 
 
+
 functions:
-  hello:
-    handler: handler.tick #Address of my function
+  hello: #Name of the lambda in aws
+    handler: handler.tick #Address of my function in js
     events:
       - httpApi:
           path: /
           method: post #Http Method
 
-# Create the dybamo dev table
+# Create the dynamo dev table
 resources:
   Resources:
-    # Dev table
+  # Dev table
     devTable:
       Type: AWS::DynamoDB::Table #Create table       
       #Setting up my table 
       Properties:
-        TableName: tickTable-dev
+        TableName: tick-dev
         BillingMode: PAY_PER_REQUEST 
         #Create my fields 
         AttributeDefinitions:
@@ -37,13 +32,12 @@ resources:
         KeySchema:  
           - AttributeName: id #The id is my "primary key" 
             KeyType: HASH
-
-    # Prod table
+  # Prod table
     prodTable:
       Type: AWS::DynamoDB::Table #Create table       
       #Setting up my table 
       Properties:
-        TableName: tickTable-prod
+        TableName: tick-prod
         BillingMode: PAY_PER_REQUEST 
         #Create my fields 
         AttributeDefinitions:

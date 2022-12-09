@@ -2,9 +2,8 @@
 const AWS = require('aws-sdk');
 const dynamodb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-1' });
 
-module.exports.tick = async (event) => {
-  // Get the name of the table 
-  // const tableName = process.env.NAME_DYNAMODB;
+module.exports.tick = async (event, context) => {
+  const tableName = getTableName(event);
 
   const newEntry = {
       id: context.awsRequestId,
@@ -26,3 +25,8 @@ module.exports.tick = async (event) => {
       return { error };
   }
 };
+
+const getTableName = (event) => {
+    if (event.requestContext.stage === "prod") return "tick-prod";
+    return "tick-dev";
+}
