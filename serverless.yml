@@ -1,6 +1,12 @@
 service: tick
 frameworkVersion: '3'
 
+params:
+  prod:
+    NAME_DYNAMODB: tickTable-prod
+  dev:
+    NAME_DYNAMODB: tickTable-dev
+
 provider:
   name: aws
   runtime: nodejs14.x
