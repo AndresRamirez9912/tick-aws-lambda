@@ -14,14 +14,15 @@ functions:
           path: /
           method: post #Http Method
 
-# Create a Dynamo DB
+# Create the dybamo dev table
 resources:
   Resources:
-    CustomerTable:
+    # Dev table
+    devTable:
       Type: AWS::DynamoDB::Table #Create table       
       #Setting up my table 
       Properties:
-        TableName: tickTable
+        TableName: tickTable-dev
         BillingMode: PAY_PER_REQUEST 
         #Create my fields 
         AttributeDefinitions:
@@ -29,4 +30,19 @@ resources:
             AttributeType: S #String as we did 
         KeySchema:  
           - AttributeName: id #The id is my "primary key" 
-            KeyType: HASH 
+            KeyType: HASH
+
+    # Prod table
+    prodTable:
+      Type: AWS::DynamoDB::Table #Create table       
+      #Setting up my table 
+      Properties:
+        TableName: tickTable-prod
+        BillingMode: PAY_PER_REQUEST 
+        #Create my fields 
+        AttributeDefinitions:
+          - AttributeName: id #Create a primary key 
+            AttributeType: S #String as we did 
+        KeySchema:  
+          - AttributeName: id #The id is my "primary key" 
+            KeyType: HASH
